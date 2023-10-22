@@ -1,0 +1,64 @@
+---
+title: "Assignment B-1"
+author: "Clayton"
+date: "2023-10-21"
+output: html_document
+---
+
+# The Function
+
+This is the dot product. Given two vectors $x$ and $y$ of same dimension, each item of $x$ is multiplied by the item of $y$ in the same position. Then all the products are multiplied. This is given the notation $x \dot y$. For example, if $x=[1, -1], y=[2, -1]$, we have $x \dot y = 1*2 + -1*-1=3$
+
+```{r}
+#' Computes the dot product of x and y. Throws an error if either vector are non-numeric, or if their lengths mismatch.
+#' 
+#' @param x A numeric vector.
+#' @param y A numeric vector.
+#'
+#' @return The result of the dot product operation.
+dot_product <- function(x, y){
+  # throw error of x or y are not numeric
+  stopifnot(is.numeric(x) && is.numeric(y))
+  # throw error if x and y do not have matching dimensions.
+  stopifnot(length(x) == length(y))
+  sum(x*y)
+}
+```
+
+# Tests
+
+Below we test that the function works on valid errors, and that it throws the expected errors.
+
+```{r}
+library(testthat)
+```
+
+```{r}
+test_that("Works on valid inputs", {
+  expect_equal(10, dot_product(c(4, 6), c(1, 1)))
+  expect_equal(0, dot_product(c(0, 0), c(1, 1)))
+  expect_equal(2, dot_product(c(1, -1, -3), c(3, -2, 1)))
+  expect_equal(.02, dot_product(c(.1, -.1, -.3), c(.3, -.2, .1)))
+})
+```
+
+```{r}
+test_that("Works on scalar values", {
+  expect_equal(3, dot_product(c(1), c(3)))
+  expect_equal(3, dot_product(1, 3))
+})
+```
+
+```{r}
+test_that("Non-numeric produces error", {
+  expect_error(dot_product(c('1'), c(3)))
+  expect_error(dot_product(c(1, 4), c(3, '0')))
+})
+```
+
+```{r}
+test_that("Length Mismatch", {
+  expect_error(dot_product(c(1), c(3, 4)))
+  expect_error(dot_product(c(1, 4, -2), c(1, 0)))
+})
+```
