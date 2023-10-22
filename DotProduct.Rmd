@@ -12,7 +12,9 @@ This is the dot product. Given two vectors $x$ and $y$ of same dimension, each i
 ```{r}
 #' Computes the dot product of x and y. Throws an error if either vector are non-numeric, or if their lengths mismatch.
 #' 
-#' @param x A numeric vector.
+#' The naming convention of x and y are traditional to represent vectors
+#' 
+#' @param x A numeric vector. 
 #' @param y A numeric vector.
 #'
 #' @return The result of the dot product operation.
@@ -23,6 +25,36 @@ dot_product <- function(x, y){
   stopifnot(length(x) == length(y))
   sum(x*y)
 }
+```
+
+# Examples
+
+For the first example, we will look at the example $x=[1, -1], y=[2, -1]$ from above. This should be equal to $3$.
+
+```{r}
+# initialize vectors
+x = c(1, -1)
+y = c(2, -1)
+
+#output
+value = dot_product(x, y)
+paste("The dot product of x and y is:", value)
+```
+
+One common application of computing the dot product is to find the length of the projection of one vector onto another. The formula for that is $$\text{proj}_v(u) = (u\dot v)*v$$ where $v$ is a unit vector (has length $1$).
+
+```{r}
+# this is a unit vector
+v = c(3, 4) / 5
+u = c(2, 3)
+
+# get values
+length_of_projection = dot_product(u, v)
+projection = length_of_projection*v
+
+# output
+paste("The length of the projection is equal to:", length_of_projection)
+paste("The u vector projects onto v at:", paste(projection, collapse = ', '))
 ```
 
 # Tests
