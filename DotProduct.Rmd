@@ -1,6 +1,6 @@
 ---
 title: "Assignment B-1"
-author: "Clayton"
+author: "Clayton Allard"
 date: "2023-10-21"
 output: html_document
 ---
